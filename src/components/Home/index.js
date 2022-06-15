@@ -1,26 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-function Home() {
+function Home(props) {
+	const { flightStatus = [], currentStatus, setCurrentStatus } = props;
+
+	useEffect(() => {
+		document.title = currentStatus.name;
+	}, [currentStatus]);
+
 	function handleOnTime(e) {
 		e.preventDefault();
-		console.log("on time");
-		// flightStatus = onTime;
+		setCurrentStatus(flightStatus[1]);
 	}
 
 	function handleDelayed(e) {
 		e.preventDefault();
-		console.log("delayed");
-		// flightStatus = delayed;
+		setCurrentStatus(flightStatus[2]);
 	}
 	function handleCancelled(e) {
 		e.preventDefault();
-		console.log("cancelled");
-		// flightStatus = cancelled;
+		setCurrentStatus(flightStatus[3]);
 	}
 
 	return (
-		<main className="App-body">
-			<h1>Find My Plane</h1>
+		<div>
 			<div>
 				<input
 					type="text"
@@ -40,7 +42,7 @@ function Home() {
 					Cancelled
 				</button>
 			</div>
-		</main>
+		</div>
 	);
 }
 

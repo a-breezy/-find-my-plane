@@ -1,15 +1,20 @@
 import React from "react";
 
 function OnTime() {
+	let onTimeTest = {
+		flightNumber: "AB123",
+		ArrivalTime: "12:30",
+		Location: "New York",
+	};
 	return (
-		<main className="App-body">
+		<div className="App-body">
 			<h1>On Time</h1>
 			<ul className="status-details">
-				<li>Flight Number: </li>
-				<li>Arrival Time: </li>
-				<li>Location: </li>
+				<li>Flight Number: {onTimeTest.flightNumber}</li>
+				<li>Arrival Time: {onTimeTest.ArrivalTime}</li>
+				<li>Location: {onTimeTest.Location}</li>
 			</ul>
-		</main>
+		</div>
 	);
 }
 
