@@ -7,8 +7,7 @@ function OnTime() {
 		Location: "New York",
 	};
 	return (
-		<div className="App-body">
-			<h1>On Time</h1>
+		<div>
 			<ul className="status-details">
 				<li>Flight Number: {onTimeTest.flightNumber}</li>
 				<li>Arrival Time: {onTimeTest.ArrivalTime}</li>

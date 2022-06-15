@@ -2,7 +2,7 @@ import React from "react";
 
 function Cancelled() {
 	return (
-		<div className="App-body">
+		<div>
 			<ul className="status-details">
 				<li>Flight Number: </li>
 				<li>Arrival Time: </li>

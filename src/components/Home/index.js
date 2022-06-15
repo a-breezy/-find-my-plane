@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 function Home(props) {
 	const { flightStatus = [], currentStatus, setCurrentStatus } = props;
 
-	useEffect(() => {
-		document.title = currentStatus.name;
-	}, [currentStatus]);
+	// useEffect(() => {
+	// 	document.title = currentStatus.name;
+	// }, [currentStatus]);
 
 	function handleOnTime(e) {
 		e.preventDefault();
