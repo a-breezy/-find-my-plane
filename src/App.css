@@ -13,8 +13,10 @@
   color: white;
 }
 
-.flight-number {
+.flight-search {
+  display: flex;
   width: 80%;
+  margin-bottom: 10px;
 }
 
 li {
