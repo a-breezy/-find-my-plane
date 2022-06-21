@@ -1,6 +1,8 @@
 import React from "react";
 
 function Status() {
+	// pass status down from App.js so that this renders whenever 
+	// state of status changes
 	let Test = {
 		flightNumber: "AB123",
 		ArrivalTime: "12:30",

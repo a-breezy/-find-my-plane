@@ -1,25 +1,18 @@
 import React, { useEffect } from "react";
 
 function SearchBar(props) {
-	const { flightStatus = [], setCurrentStatus, currentStatus } = props;
+	const { flightStatus = [], setStatus, status } = props;
 
-	// useEffect(() => {
-	// 	document.title = currentStatus.name;
-	// }, [currentStatus]);
+	useEffect(() => {
+		document.title = status.name;
+	}, [status]);
 
-	function handleOnTime(e) {
+	function handleClick(e) {
 		e.preventDefault();
-		currentStatus = setCurrentStatus(flightStatus[1]);
+		let updatedStatus = status;
+		updatedStatus = flightStatus[1];
+		setStatus(updatedStatus);
 	}
-
-	// function handleDelayed(e) {
-	// 	e.preventDefault();
-	// 	currentStatus = setCurrentStatus(flightStatus[2]);
-	// }
-	// function handleCancelled(e) {
-	// 	e.preventDefault();
-	// 	currentStatus = setCurrentStatus(flightStatus[3]);
-	// }
 
 	return (
 		<div>
@@ -28,15 +21,12 @@ function SearchBar(props) {
 				<button type="button">enter</button>
 			</div>
 			<div>
-				<button type="button" onClick={handleOnTime}>
-					On Time
-				</button>
-				<button type="button" onClick={handleOnTime}>
-					Delayed
-				</button>
-				<button type="button" onClick={handleOnTime}>
-					Cancelled
-				</button>
+				{flightStatus.map((status) => (
+					// if(status !== status[0]){
+					<button type="button" onClick={handleClick} key={status.name}>
+						{status.name}
+					</button>
+				))}
 			</div>
 		</div>
 	);
