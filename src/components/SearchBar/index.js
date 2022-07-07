@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { testApi } from "../../utils/js/apiHelper";
 
 function SearchBar(props) {
 	const { flightStatus = [], setStatus, status } = props;
@@ -9,8 +10,11 @@ function SearchBar(props) {
 
 	function handleClick(e) {
 		e.preventDefault();
+		testApi();
+		console.log(status);
 		let updatedStatus = status;
-		updatedStatus = flightStatus[1];
+		console.log(updatedStatus);
+		updatedStatus = flightStatus[2];
 		setStatus(updatedStatus);
 	}
 
@@ -21,10 +25,10 @@ function SearchBar(props) {
 				<button type="button">enter</button>
 			</div>
 			<div>
-				{flightStatus.map((status) => (
-					// if(status !== status[0]){
+				{flightStatus.map((status, i) => (
+					// make button not render flightStatus[0]
 					<button type="button" onClick={handleClick} key={status.name}>
-						{status.name}
+						<span>{status.name}</span>
 					</button>
 				))}
 			</div>

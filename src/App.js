@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import SearchBar from "./components/SearchBar";
@@ -6,12 +6,16 @@ import Status from "./components/Status";
 
 function App() {
 	const [flightStatus] = useState([
-		{ name: "Find My Plane", component: [] },
-		{ name: "On Time", component: [] },
-		{ name: "Delayed", component: [] },
-		{ name: "Cancelled", component: [] },
+		{ name: "Find My Plane" },
+		{ name: "On Time" },
+		{ name: "Delayed" },
+		{ name: "Cancelled" },
 	]);
 	const [status, setStatus] = useState(flightStatus[0]);
+
+	useEffect(() => {
+		document.title = status.name;
+	}, [status]);
 
 	return (
 		<div className="App">
@@ -20,11 +24,12 @@ function App() {
 				{/* create logic for searchbar or when button pressed
 					ontime, delayed, or cancelled	
 				*/}
-				<SearchBar 
-					flightStatus = {flightStatus}
+				<SearchBar
+					flightStatus={flightStatus}
 					setStatus={setStatus}
 					status={status}
 				/>
+				{/* <Status /> */}
 			</main>
 		</div>
 	);
