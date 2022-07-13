@@ -62,8 +62,10 @@ export function searchFlightNumber(searchInput) {
 	});
 }
 
+// move this whole function into handleChange in search
 // control flow depending on null input, delayed, on time, or cancelled
 export function inputValidation(userInput) {
+	console.log(userInput);
 	// if user submits nothing repeat with alert (or popup)
 	if (userInput === null) {
 		console.log("no input");
@@ -80,4 +82,36 @@ export function inputValidation(userInput) {
 		// if 6 set through regex to make sure first two char are letters and last 4 are numbers
 		searchFlights(userInput);
 	}
+}
+
+// create validate flightNumber to check the flight number is 4 numbers or 2 letters and 4 numbers
+// before searching with api
+export function validateSixChar(flightNumber) {
+	var regex = /((^[a-z]{2})(\d{4}$))/i;
+	return regex.test(String(flightNumber));
+
+	// redundant code to get to problem
+
+	// // compare against regex to make sure 4 char are numbers
+	// if (flightNumber.length === 4) {
+	// 	console.log("test ", regex.test(String(flightNumber)));
+	// 	return regex.test(String(flightNumber));
+	// } else if (flightNumber.length === 6) {
+	// 	let check = regex.test(String(flightNumber).toUpperCase());
+	// 	console.log("check ", check);
+	// 	// split number by indices 0-1 and 2-5
+	// 	// let iata = flightNumber.slice(0, 2);
+	// 	// let flight = flightNumber.slice(2, 6);
+
+	// 	return check;
+	// 	// console.log("iata ", iata, "flight ", flight);
+	// 	// return iata, flight;
+	// }
+
+	// // return new iataNumber and number, or just number depending on length
+}
+
+export function validateFourChar(flightNumber) {
+	var regex = /(\d{4})/;
+	return regex.test(String(flightNumber));
 }

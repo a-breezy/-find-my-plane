@@ -1,17 +1,55 @@
-import React, { useEffect } from "react";
-import { searchFlights, inputValidation } from "../../utils/js/apiHelper";
+import React, { useEffect, useState } from "react";
+import {
+	searchFlights,
+	inputValidation,
+	validateSixChar,
+	validateFourChar,
+} from "../../utils/js/apiHelper";
 
 function SearchBar(props) {
 	const { flightStatus = [], setStatus, status } = props;
+	const [errorMessage, setErrorMessage] = useState("");
+	const [formState, setFormState] = useState({ flightNumberInput: "" });
+	const { flightNumberInput } = formState;
 
 	useEffect(() => {
 		document.title = status.name;
 	}, [status]);
 
-	function handleClick(e) {
+	function handleChange(e) {
+		// create a validation response to check flightnumber is valid (see apiHelper)
+		if (e.target.name === "flightNumberInput") {
+			if (e.target.value.length === 4 && validateFourChar(e.target.value)) {
+				console.log("Correct flight Input 4 char");
+			} else if (
+				e.target.value.length === 6 &&
+				validateSixChar(e.target.value)
+			) {
+				console.log("Correct Flight Input 6 char");
+			} else {
+				console.log("Error");
+			}
+
+			// if (!isValid) {
+			// 	setErrorMessage("Your flight number is invalid");
+			// } else {
+			// 	setErrorMessage("");
+			// }
+		}
+		if (!errorMessage) {
+			setFormState({ ...formState, [e.target.name]: e.target.value });
+		}
+		// if there are extra things to update change flightNUmberInput to {[e.target.name]: e.target.value} --> must also change useState declaration
+		console.log("error message: ", errorMessage);
+	}
+
+	function handleSubmit(e) {
 		e.preventDefault();
-		inputValidation();
-		console.log("click");
+		// inputValidation(e);
+		console.log(e);
+		console.log(formState);
+
+		// notes on updating api state
 		// let updatedStatus = status;
 		// updatedStatus = flightStatus[2];
 		// setStatus(updatedStatus);
@@ -19,40 +57,25 @@ function SearchBar(props) {
 
 	return (
 		<div>
-			<div className="flight-search">
+			<form
+				id="flight-search"
+				className="flight-search"
+				onSubmit={handleSubmit}
+			>
 				{/* need to include basic instructions */}
-				<label for="flightNumberInput">
+				<label htmlFor="flightNumberInput">
 					Type Flight Number (either with or without two character IATA code)
-				</label>
-				<br />
-				<input
-					type="text"
-					if="flightNumberInput"
-					placeholder="Enter Flight Number"
-				/>
-				<button type="submit" onClick={handleClick}>
-					Find My Plane
-				</button>
-				{/* <form onSubmit={handleSubmit}>
-				<label>Enter your name:
-					<input 
-					type="text" 
-					value={name}
-					onChange={(e) => setName(e.target.value)}
+					<input
+						type="text"
+						// id="flightNumberInput"
+						name="flightNumberInput"
+						placeholder="Enter Flight Number"
+						defaultValue={flightNumberInput}
+						onChange={handleChange}
 					/>
 				</label>
-				<input type="submit" />
-				</form> */}
-			</div>
-			{/* making multiple buttons for each search. not necessary
-			<div>
-				{flightStatus.map((status, i) => (
-					// make button not render flightStatus[0]
-					<button type="button" onClick={handleClick} key={status.name}>
-						<span>{status.name}</span>
-					</button>
-				))}
-			</div> */}
+				<button type="submit">Find My Plane</button>
+			</form>
 		</div>
 	);
 }
