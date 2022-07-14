@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
-	searchFlights,
-	inputValidation,
+	searchFlight,
+	searchFlightNumber,
 	validateSixChar,
 	validateFourChar,
-} from "../../utils/js/apiHelper";
+} from "../../utils/js/helper";
 
 function SearchBar(props) {
 	const { flightStatus = [], setStatus, status } = props;
@@ -12,41 +12,58 @@ function SearchBar(props) {
 	const [formState, setFormState] = useState({ flightNumberInput: "" });
 	const { flightNumberInput } = formState;
 
+	let iata = "",
+		flight = "";
+
 	useEffect(() => {
 		document.title = status.name;
 	}, [status]);
 
 	function handleChange(e) {
-		// create a validation response to check flightnumber is valid (see apiHelper)
-		if (e.target.name === "flightNumberInput") {
-			if (e.target.value.length === 4 && validateFourChar(e.target.value)) {
-				console.log("Correct flight Input 4 char");
-			} else if (
-				e.target.value.length === 6 &&
-				validateSixChar(e.target.value)
-			) {
-				console.log("Correct Flight Input 6 char");
-			} else {
-				console.log("Error");
-			}
+		const flightNumber = e.target.value;
+		if (flightNumber.length === 4 && validateFourChar(flightNumber)) {
+			console.log("Correct flight Input 4 char", flightNumber);
+			console.log(searchFlightNumber(flightNumber));
+			return (flight = flightNumber);
+		} else if (flightNumber.length === 6 && validateSixChar(flightNumber)) {
+			// trying to return the values of iata and flight
+			console.log("Correct flight Input 6 char");
+			iata = flightNumber.slice(0, 2);
+			flight = flightNumber.slice(2, 6);
+			console.log("inside else ", [iata, flight]);
+			console.log(searchFlight(iata, flight));
+			return [iata, flight];
+		} else if (
+			!flightNumber.length ||
+			!validateFourChar(flightNumber) ||
+			!validateSixChar(flightNumber)
+		) {
+			// console.log("set error message");
+			setErrorMessage(
+				"Flight number must be four numbers or two letters followed by four numbers."
+			);
+		} else {
+			setErrorMessage("");
+		}
+		console.log("outside else ", [iata, flight]);
+		// only update formState if there is no error message
+		// if (!errorMessage) {
+		// 	setFormState({ ...formState, [e.target.name]: e.target.value });
+		// }
+		// // if there are extra things to update change flightNUmberInput to {[e.target.name]: e.target.value} --> must also change useState declaration
+		// if (errorMessage) {
+		// 	console.log("error message: ", errorMessage);
+		// }
 
-			// if (!isValid) {
-			// 	setErrorMessage("Your flight number is invalid");
-			// } else {
-			// 	setErrorMessage("");
-			// }
-		}
-		if (!errorMessage) {
-			setFormState({ ...formState, [e.target.name]: e.target.value });
-		}
-		// if there are extra things to update change flightNUmberInput to {[e.target.name]: e.target.value} --> must also change useState declaration
-		console.log("error message: ", errorMessage);
+		return [iata, flight];
 	}
+
+	// console.log(iata, flight);
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		// inputValidation(e);
-		console.log(e);
+		console.log("submit ", e);
 		console.log(formState);
 
 		// notes on updating api state
@@ -71,9 +88,15 @@ function SearchBar(props) {
 						name="flightNumberInput"
 						placeholder="Enter Flight Number"
 						defaultValue={flightNumberInput}
-						onChange={handleChange}
+						onBlur={handleChange}
 					/>
 				</label>
+				{/* change the class/font size of this */}
+				{errorMessage && (
+					<div>
+						<p className="error">{errorMessage}</p>
+					</div>
+				)}
 				<button type="submit">Find My Plane</button>
 			</form>
 		</div>
