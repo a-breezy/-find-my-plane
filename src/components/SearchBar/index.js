@@ -5,6 +5,7 @@ import {
 	validateSixChar,
 	validateFourChar,
 } from "../../utils/js/helper";
+import axios from "axios";
 
 function SearchBar(props) {
 	const { flightStatus = [], setStatus, status } = props;
@@ -30,7 +31,6 @@ function SearchBar(props) {
 			console.log("Correct flight Input 6 char");
 			iata = flightNumber.slice(0, 2);
 			flight = flightNumber.slice(2, 6);
-			console.log("inside else ", [iata, flight]);
 			console.log(searchFlight(iata, flight));
 			return [iata, flight];
 		} else if (
@@ -62,14 +62,19 @@ function SearchBar(props) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		// inputValidation(e);
-		console.log("submit ", e);
-		console.log(formState);
 
-		// notes on updating api state
-		// let updatedStatus = status;
-		// updatedStatus = flightStatus[2];
-		// setStatus(updatedStatus);
+		let apiKey = process.env.REACT_APP_FLIGHT_API_KEY;
+		let apiUrl = "/" + apiKey + "&flight_number=" + 3628;
+
+		axios
+			.get(apiUrl)
+			.then((res) => {
+				console.log("Status ", res.status);
+				console.log("Data ", res.data);
+			})
+			.catch((err) => {
+				console.log("Error", err);
+			});
 	}
 
 	return (
@@ -97,7 +102,9 @@ function SearchBar(props) {
 						<p className="error">{errorMessage}</p>
 					</div>
 				)}
-				<button type="submit">Find My Plane</button>
+				<button type="submit" onClick={handleSubmit}>
+					Find My Plane
+				</button>
 			</form>
 		</div>
 	);
