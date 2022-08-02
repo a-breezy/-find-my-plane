@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-
-const PORT = process.env.PORT || 3001
 const app = express();
+
+const PORT = process.env.PORT || 3001;
 
 // define cors options to allow for connection
 let corsOptions = {
@@ -12,8 +12,14 @@ let corsOptions = {
 
 app.use(cors());
 
-app.get();
+// define path to what is being retrieved from flighttracker
 
-app.listen(80, function(){
+// enables single route
+app.get('/flights/flightNUmber/iataNumber', cors(corsOptions), function (req, res, next) {
+    res.json({msg: 'this is cors enable fingle route'})
+})
+
+
+app.listen(PORT, () => {
     console.log(`App functioning on port ${PORT}`);
 });
