@@ -4,6 +4,7 @@ import {
 	searchFlightNumber,
 	validateSixChar,
 	validateFourChar,
+	checkValue
 } from "../../utils/js/searchFlightFunctions";
 
 function SearchBar(props) {
@@ -26,32 +27,7 @@ function SearchBar(props) {
 	function handleChange(e) {
 		const flightNumber = e.target.value;
 		
-		function checkValue (flightNumber) {
-			if (flightNumber.length === 4 && validateFourChar(flightNumber)) {
-				console.log(searchFlightNumber(flightNumber));
-
-				setErrorMessage("");
-				return (flight = flightNumber);
-
-			} else if (flightNumber.length === 6 && validateSixChar(flightNumber)) {
-
-				iata = flightNumber.slice(0, 2);
-				flight = flightNumber.slice(2, 6);
-				console.log(searchFlight(iata, flight));
-
-				setErrorMessage("");
-				return [iata, flight];
-
-			} else if (
-				!flightNumber.length ||
-				!validateFourChar(flightNumber) ||
-				!validateSixChar(flightNumber)
-			) {
-				// console.log("set error message");
-				setErrorMessage(
-					"Flight number must be four numbers or two letters followed by four numbers."
-				);
-			}
+		checkValue(flightNumber)
 			console.log("outside else ", [iata, flight]);
 			// only update formState if there is no error message
 			// if (!errorMessage) {
