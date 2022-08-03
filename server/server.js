@@ -1,25 +1,23 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
 const PORT = process.env.PORT || 3001;
 
 // define cors options to allow for connection
-let corsOptions = {
-    origin: "https://app.goflightlabs.com",
+const corsOptions = {
+    // origin: "https://app.goflightlabs.com",
+    origin: "*",
     optionsSuccessStatus: 200
 }
 
-app.use(cors());
-
-// define path to what is being retrieved from flighttracker
+// define path to what is being retrieved from flightTracker
 
 // enables single route
-app.get('/flights/flightNUmber/iataNumber', cors(corsOptions), function (req, res, next) {
-    res.json({msg: 'this is cors enable fingle route'})
+app.get('/flights/flightNumber/iataNumber', cors(corsOptions), function (req, res, next) {
+    res.json({msg: 'cors enabled get route'})
 })
 
 
 app.listen(PORT, () => {
-    console.log(`App functioning on port ${PORT}`);
+    console.log(`App servingon port ${PORT}`);
 });

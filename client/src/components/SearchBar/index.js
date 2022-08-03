@@ -4,12 +4,12 @@ import {
 	searchFlightNumber,
 	validateSixChar,
 	validateFourChar,
-} from "../../utils/js/searchFlight";
+} from "../../utils/js/searchFlightFunctions";
 
 function SearchBar(props) {
 	// prop passes down status of flight
-	const { flightStatus = [], setStatus, status } = props;
-	
+	// const { flightStatus = [], setStatus, status } = props;
+
 	const [errorMessage, setErrorMessage] = useState("");
 	const [formState, setFormState] = useState({ flightNumberInput: "" });
 	const { flightNumberInput } = formState;
@@ -17,46 +17,56 @@ function SearchBar(props) {
 	let iata = "",
 		flight = "";
 
-	useEffect(() => {
-		document.title = status.name;
-	}, [status]);
+	// useEffect(() => {
+	// 	document.title = status.name;
+	// }, [status]);
 
+
+	// once logic is figured move to searchFlightFunctions.js
 	function handleChange(e) {
 		const flightNumber = e.target.value;
-		if (flightNumber.length === 4 && validateFourChar(flightNumber)) {
-			console.log("Correct flight Input 4 char", flightNumber);
-			console.log(searchFlightNumber(flightNumber));
-			return (flight = flightNumber);
-		} else if (flightNumber.length === 6 && validateSixChar(flightNumber)) {
-			// trying to return the values of iata and flight
-			console.log("Correct flight Input 6 char");
-			iata = flightNumber.slice(0, 2);
-			flight = flightNumber.slice(2, 6);
-			console.log(searchFlight(iata, flight));
-			return [iata, flight];
-		} else if (
-			!flightNumber.length ||
-			!validateFourChar(flightNumber) ||
-			!validateSixChar(flightNumber)
-		) {
-			// console.log("set error message");
-			setErrorMessage(
-				"Flight number must be four numbers or two letters followed by four numbers."
-			);
-		} else {
-			setErrorMessage("");
-		}
-		console.log("outside else ", [iata, flight]);
-		// only update formState if there is no error message
-		// if (!errorMessage) {
-		// 	setFormState({ ...formState, [e.target.name]: e.target.value });
-		// }
-		// // if there are extra things to update change flightNUmberInput to {[e.target.name]: e.target.value} --> must also change useState declaration
-		// if (errorMessage) {
-		// 	console.log("error message: ", errorMessage);
-		// }
+		
+		function checkValue (flightNumber) {
+			if (flightNumber.length === 4 && validateFourChar(flightNumber)) {
+				console.log(searchFlightNumber(flightNumber));
 
-		return [iata, flight];
+				setErrorMessage("");
+				return (flight = flightNumber);
+
+			} else if (flightNumber.length === 6 && validateSixChar(flightNumber)) {
+
+				iata = flightNumber.slice(0, 2);
+				flight = flightNumber.slice(2, 6);
+				console.log(searchFlight(iata, flight));
+
+				setErrorMessage("");
+				return [iata, flight];
+
+			} else if (
+				!flightNumber.length ||
+				!validateFourChar(flightNumber) ||
+				!validateSixChar(flightNumber)
+			) {
+				// console.log("set error message");
+				setErrorMessage(
+					"Flight number must be four numbers or two letters followed by four numbers."
+				);
+			}
+			console.log("outside else ", [iata, flight]);
+			// only update formState if there is no error message
+			// if (!errorMessage) {
+			// 	setFormState({ ...formState, [e.target.name]: e.target.value });
+			// }
+			// // if there are extra things to update change flightNUmberInput to {[e.target.name]: e.target.value} --> must also change useState declaration
+			// if (errorMessage) {
+			// 	console.log("error message: ", errorMessage);
+			// }
+	
+			return [iata, flight];
+
+		}
+
+		checkValue(flightNumber)
 	}
 
 	// console.log(iata, flight);
@@ -99,3 +109,4 @@ function SearchBar(props) {
 }
 
 export default SearchBar;
+

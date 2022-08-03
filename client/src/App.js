@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import SearchBar from "./components/SearchBar";
+
+// status comp will render once data is returned from API
 import Status from "./components/Status";
 
 function App() {
@@ -21,9 +23,6 @@ function App() {
 		<div className="App">
 			<main className="App-body">
 				<h1>{status.name}</h1>
-				{/* create logic for searchbar or when button pressed
-					ontime, delayed, or cancelled	
-				*/}
 				<SearchBar
 					flightStatus={flightStatus}
 					setStatus={setStatus}
