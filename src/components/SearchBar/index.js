@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-	searchFlight,
+	// searchFlight,
 	searchFlightNumber,
 	validateSixChar,
 	validateFourChar,
