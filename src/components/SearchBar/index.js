@@ -5,7 +5,7 @@ import {
 	validateSixChar,
 	validateFourChar,
 } from "../../utils/js/helper";
-import axios from "axios";
+
 
 function SearchBar(props) {
 	const { flightStatus = [], setStatus, status } = props;
@@ -66,15 +66,7 @@ function SearchBar(props) {
 		let apiKey = process.env.REACT_APP_FLIGHT_API_KEY;
 		let apiUrl = "/" + apiKey + "&flight_number=" + 3628;
 
-		axios
-			.get(apiUrl)
-			.then((res) => {
-				console.log("Status ", res.status);
-				console.log("Data ", res.data);
-			})
-			.catch((err) => {
-				console.log("Error", err);
-			});
+	
 	}
 
 	return (
