@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 
 export function searchFlight(iata, flight) {
 	console.log(iata, flight);
@@ -27,24 +27,19 @@ export function searchFlight(iata, flight) {
 	// 	});
 	// });
 
-	axios.get(apiUrl)
-		.then(response => {
-			console.log("Status ", response.status);
-			console.log("Data ", response.data);
-		}).catch(error => {
-			console.log("Error", error);
-		})
-	
-	// axios.get(`${baseurl}api/v2/pokemon/5`).then((response) => {
-	// 	setPokemon(response.data);
-	// 	setLoading(false);
-	// });
-	// fetch(apiUrl).then(function (response) {
-	// // then console log the data
-	// response.json().then(function (data) {
-	// 	console.log(data);
-	// });
-	// });
+	// axios.get(apiUrl)
+	// 	.then(response => {
+	// 		console.log("Status ", response.status);
+	// 		console.log("Data ", response.data);
+	// 	}).catch(error => {
+	// 		console.log("Error", error);
+	// 	})
+	fetch(apiUrl).then(function (response) {
+	// then console log the data
+	response.json().then(function (data) {
+		console.log(data);
+	});
+}
 }
 
 export function searchFlightNumber(flight) {
