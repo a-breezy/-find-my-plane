@@ -57,34 +57,3 @@ export function validateFourChar(flightNumber) {
 	var regex = /(\d{4})/;
 	return regex.test(String(flightNumber));
 }
-
-// check that input is valid and send fetch data
-export function checkValue (flightNumber) {
-	if (flightNumber.length === 4 && validateFourChar(flightNumber)) {
-		// take away clg 
-		console.log(searchFlightNumber(flightNumber));
-
-		setErrorMessage("");
-		return (flight = flightNumber);
-
-	} else if (flightNumber.length === 6 && validateSixChar(flightNumber)) {
-		iata = flightNumber.slice(0, 2);
-		flight = flightNumber.slice(2, 6);
-
-		// take away clg
-		console.log(searchFlight(iata, flight));
-
-		setErrorMessage("");
-		return [iata, flight];
-
-	} else if (
-		!flightNumber.length ||
-		!validateFourChar(flightNumber) ||
-		!validateSixChar(flightNumber)
-	) {
-		// console.log("set error message");
-		setErrorMessage(
-			"Flight number must be four numbers or two letters followed by four numbers."
-		);
-	}
-}
