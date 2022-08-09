@@ -3,9 +3,6 @@ import "./App.css";
 
 import SearchBar from "./components/SearchBar";
 
-// status comp will render once data is returned from API
-import Status from "./components/Status";
-
 function App() {
 	const [flightStatus] = useState([
 		{ name: "Find My Plane" },
@@ -28,7 +25,6 @@ function App() {
 					setStatus={setStatus}
 					status={status}
 				/>
-				{/* <Status /> */}
 			</main>
 		</div>
 	);
