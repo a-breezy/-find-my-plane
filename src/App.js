@@ -25,6 +25,7 @@ function App() {
 					setStatus={setStatus}
 					status={status}
 				/>
+				{/* if search return status */}
 			</main>
 		</div>
 	);
