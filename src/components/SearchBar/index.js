@@ -45,7 +45,7 @@ function SearchBar(props) {
 		) {
 			// console.log("set error message");
 			setErrorMessage(
-				"Flight number must be four numbers or two letters followed by four numbers."
+				"The flight number you entered is not valid\nPlease check the number and try again"
 			);
 		}
 	}

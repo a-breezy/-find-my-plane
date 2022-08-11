@@ -6,7 +6,7 @@ import Status from "./components/Status";
 
 function App() {
 	const [flightStatus] = useState([
-		{ name: "Find My Plane" },
+		{ name: "Find My Plane ✈️" },
 		{ name: "On Time" },
 		{ name: "Delayed" },
 		{ name: "Cancelled" },
@@ -22,8 +22,6 @@ function App() {
 		<div className="App">
 			<main className="App-body">
 				<h1>{status.name}</h1>
-
-				{/* conditionally render status if serachbar finds flight */}
 				{search ? (
 					<>
 						<SearchBar
