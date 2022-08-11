@@ -8,6 +8,7 @@ import {
 
 function SearchBar(props) {
 	const { flightStatus = [], setStatus, status } = props;
+	const { search, setSearch } = props;
 	const [errorMessage, setErrorMessage] = useState("");
 	const [formState, setFormState] = useState({ flightNumberInput: "" });
 	const { flightNumberInput } = formState;
@@ -25,7 +26,7 @@ function SearchBar(props) {
 		if (flightNumber.length === 4 && validateFourChar(flightNumber)) {
 			// change to function instead of console
 			console.log(searchFlightNumber(flightNumber));
-
+			setSearch(true);
 			setErrorMessage("");
 			return (flight = flightNumber);
 		} else if (flightNumber.length === 6 && validateSixChar(flightNumber)) {
@@ -34,7 +35,7 @@ function SearchBar(props) {
 
 			// change to function instead of console
 			console.log(searchFlight(iata, flight));
-
+			setSearch(true);
 			setErrorMessage("");
 			return [iata, flight];
 		} else if (
@@ -51,18 +52,19 @@ function SearchBar(props) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
+		// on click render status component
+		setSearch(true);
 	}
 
 	return (
-		<div>
-			<form
-				id="flight-search"
-				className="flight-search"
-				onSubmit={handleSubmit}
-			>
+		<div className="flight-search">
+			<form id="search-form" className="flight-search" onSubmit={handleSubmit}>
 				{/* need to include basic instructions */}
 				<label htmlFor="flightNumberInput">
-					Type Flight Number (either with or without two character IATA code)
+					Type Flight Number
+					<p className="min-font">with or without two character IATA code</p>
+				</label>
+				<div className="input-area">
 					<input
 						type="text"
 						// id="flightNumberInput"
@@ -71,17 +73,17 @@ function SearchBar(props) {
 						defaultValue={flightNumberInput}
 						onBlur={handleChange}
 					/>
-				</label>
+					<button type="submit" onClick={handleSubmit}>
+						Find My Plane
+					</button>
+				</div>
 				{/* change the class/font size of this */}
-				{errorMessage && (
-					<div>
-						<p className="error">{errorMessage}</p>
-					</div>
-				)}
-				<button type="submit" onClick={handleSubmit}>
-					Find My Plane
-				</button>
 			</form>
+			{errorMessage && (
+				<div>
+					<p className="error">{errorMessage}</p>
+				</div>
+			)}
 		</div>
 	);
 }

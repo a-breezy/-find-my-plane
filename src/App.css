@@ -13,10 +13,32 @@
 	color: white;
 }
 
-.flight-search {
+.min-font {
+	font-size: calc(10px + 1vmin);
+}
+
+.search-form {
 	display: flex;
 	width: 80%;
 	margin-bottom: 10px;
+}
+
+.flight-search {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.input-area {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.input-area input {
+	width: 80%;
+	text-align: center;
 }
 
 li {
