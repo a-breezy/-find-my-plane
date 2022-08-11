@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/find-my-plane/static/css/main.2d7054f7.css",
-    "main.js": "/find-my-plane/static/js/main.0bffdf8e.js",
+    "main.js": "/find-my-plane/static/js/main.3cc4a2dc.js",
     "static/js/787.59dcccd2.chunk.js": "/find-my-plane/static/js/787.59dcccd2.chunk.js",
     "index.html": "/find-my-plane/index.html",
     "main.2d7054f7.css.map": "/find-my-plane/static/css/main.2d7054f7.css.map",
-    "main.0bffdf8e.js.map": "/find-my-plane/static/js/main.0bffdf8e.js.map",
+    "main.3cc4a2dc.js.map": "/find-my-plane/static/js/main.3cc4a2dc.js.map",
     "787.59dcccd2.chunk.js.map": "/find-my-plane/static/js/787.59dcccd2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2d7054f7.css",
-    "static/js/main.0bffdf8e.js"
+    "static/js/main.3cc4a2dc.js"
   ]
 }
