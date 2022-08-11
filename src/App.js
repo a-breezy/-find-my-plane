@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import SearchBar from "./components/SearchBar";
+import Status from "./components/Status";
 
 function App() {
 	const [flightStatus] = useState([
@@ -25,7 +26,9 @@ function App() {
 					setStatus={setStatus}
 					status={status}
 				/>
+				<br />
 				{/* if search return status */}
+				<Status />
 			</main>
 		</div>
 	);
