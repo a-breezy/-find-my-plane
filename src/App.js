@@ -12,6 +12,7 @@ function App() {
 		{ name: "Cancelled" },
 	]);
 	const [status, setStatus] = useState(flightStatus[0]);
+	const [search, setSearch] = useState(false);
 
 	useEffect(() => {
 		document.title = status.name;
@@ -21,14 +22,32 @@ function App() {
 		<div className="App">
 			<main className="App-body">
 				<h1>{status.name}</h1>
-				<SearchBar
-					flightStatus={flightStatus}
-					setStatus={setStatus}
-					status={status}
-				/>
-				<br />
-				{/* if search return status */}
-				<Status />
+
+				{/* conditionally render status if serachbar finds flight */}
+				{search ? (
+					<>
+						<SearchBar
+							flightStatus={flightStatus}
+							setStatus={setStatus}
+							status={status}
+							search={search}
+							setSearch={setSearch}
+						/>
+						<br />
+						<Status />
+					</>
+				) : (
+					<>
+						<SearchBar
+							flightStatus={flightStatus}
+							setStatus={setStatus}
+							status={status}
+							search={search}
+							setSearch={setSearch}
+						/>
+					</>
+				)}
+				{/* <Status /> */}
 			</main>
 		</div>
 	);
