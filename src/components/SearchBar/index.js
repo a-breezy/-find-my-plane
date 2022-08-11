@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {
-	// searchFlight,
+	searchFlight,
 	searchFlightNumber,
 	validateSixChar,
 	validateFourChar,
-} from "../../utils/js/helper";
-
+} from "../../utils/js/searchFlightFunctions";
 
 function SearchBar(props) {
 	const { flightStatus = [], setStatus, status } = props;
+	const { search, setSearch } = props;
 	const [errorMessage, setErrorMessage] = useState("");
 	const [formState, setFormState] = useState({ flightNumberInput: "" });
 	const { flightNumberInput } = formState;
@@ -16,6 +16,7 @@ function SearchBar(props) {
 	let iata = "",
 		flight = "";
 
+	// change page title based on status
 	useEffect(() => {
 		document.title = status.name;
 	}, [status]);
@@ -23,15 +24,19 @@ function SearchBar(props) {
 	function handleChange(e) {
 		const flightNumber = e.target.value;
 		if (flightNumber.length === 4 && validateFourChar(flightNumber)) {
-			console.log("Correct flight Input 4 char", flightNumber);
+			// change to function instead of console
 			console.log(searchFlightNumber(flightNumber));
+			setSearch(true);
+			setErrorMessage("");
 			return (flight = flightNumber);
 		} else if (flightNumber.length === 6 && validateSixChar(flightNumber)) {
-			// trying to return the values of iata and flight
-			console.log("Correct flight Input 6 char");
 			iata = flightNumber.slice(0, 2);
 			flight = flightNumber.slice(2, 6);
+
+			// change to function instead of console
 			console.log(searchFlight(iata, flight));
+			setSearch(true);
+			setErrorMessage("");
 			return [iata, flight];
 		} else if (
 			!flightNumber.length ||
@@ -40,45 +45,26 @@ function SearchBar(props) {
 		) {
 			// console.log("set error message");
 			setErrorMessage(
-				"Flight number must be four numbers or two letters followed by four numbers."
+				"The flight number you entered is not valid\nPlease check the number and try again"
 			);
-		} else {
-			setErrorMessage("");
 		}
-		console.log("outside else ", [iata, flight]);
-		// only update formState if there is no error message
-		// if (!errorMessage) {
-		// 	setFormState({ ...formState, [e.target.name]: e.target.value });
-		// }
-		// // if there are extra things to update change flightNUmberInput to {[e.target.name]: e.target.value} --> must also change useState declaration
-		// if (errorMessage) {
-		// 	console.log("error message: ", errorMessage);
-		// }
-
-		return [iata, flight];
 	}
-
-	// console.log(iata, flight);
 
 	function handleSubmit(e) {
 		e.preventDefault();
-
-		let apiKey = process.env.REACT_APP_FLIGHT_API_KEY;
-		let apiUrl = "/" + apiKey + "&flight_number=" + 3628;
-
-	
+		// on click render status component
+		setSearch(true);
 	}
 
 	return (
-		<div>
-			<form
-				id="flight-search"
-				className="flight-search"
-				onSubmit={handleSubmit}
-			>
+		<div className="flight-search">
+			<form id="search-form" className="flight-search" onSubmit={handleSubmit}>
 				{/* need to include basic instructions */}
 				<label htmlFor="flightNumberInput">
-					Type Flight Number (either with or without two character IATA code)
+					Type Flight Number
+					<p className="min-font">with or without two character IATA code</p>
+				</label>
+				<div className="input-area">
 					<input
 						type="text"
 						// id="flightNumberInput"
@@ -87,17 +73,17 @@ function SearchBar(props) {
 						defaultValue={flightNumberInput}
 						onBlur={handleChange}
 					/>
-				</label>
+					<button type="submit" onClick={handleSubmit}>
+						Find My Plane
+					</button>
+				</div>
 				{/* change the class/font size of this */}
-				{errorMessage && (
-					<div>
-						<p className="error">{errorMessage}</p>
-					</div>
-				)}
-				<button type="submit" onClick={handleSubmit}>
-					Find My Plane
-				</button>
 			</form>
+			{errorMessage && (
+				<div>
+					<p className="error">{errorMessage}</p>
+				</div>
+			)}
 		</div>
 	);
 }

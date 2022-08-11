@@ -6,12 +6,13 @@ import Status from "./components/Status";
 
 function App() {
 	const [flightStatus] = useState([
-		{ name: "Find My Plane" },
+		{ name: "Find My Plane ✈️" },
 		{ name: "On Time" },
 		{ name: "Delayed" },
 		{ name: "Cancelled" },
 	]);
 	const [status, setStatus] = useState(flightStatus[0]);
+	const [search, setSearch] = useState(false);
 
 	useEffect(() => {
 		document.title = status.name;
@@ -21,15 +22,29 @@ function App() {
 		<div className="App">
 			<main className="App-body">
 				<h1>{status.name}</h1>
-				{/* create logic for searchbar or when button pressed
-					ontime, delayed, or cancelled	
-				*/}
-				<SearchBar
-					flightStatus={flightStatus}
-					setStatus={setStatus}
-					status={status}
-				/>
-				{/* <Status /> */}
+				{search ? (
+					<>
+						<SearchBar
+							flightStatus={flightStatus}
+							setStatus={setStatus}
+							status={status}
+							search={search}
+							setSearch={setSearch}
+						/>
+						<br />
+						<Status />
+					</>
+				) : (
+					<>
+						<SearchBar
+							flightStatus={flightStatus}
+							setStatus={setStatus}
+							status={status}
+							search={search}
+							setSearch={setSearch}
+						/>
+					</>
+				)}
 			</main>
 		</div>
 	);
