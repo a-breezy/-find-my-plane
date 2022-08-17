@@ -1,9 +1,12 @@
+import axios from "axios";
+
 export function searchFlight(iata, flight) {
 	let apiKey = process.env.REACT_APP_FLIGHT_API_KEY;
 	// dynamic query
 	// let flightNumber = flight;
 	// let airlineIata = iata;
 
+	console.log(apiKey);
 	console.log(iata, flight);
 
 	// hardcoded query
@@ -11,19 +14,24 @@ export function searchFlight(iata, flight) {
 	let airlineIata = "af";
 
 	let apiUrl =
-		"https://app.goflightlabs.com/flights?access_key=" +
+		"/flights?access_key=" +
 		apiKey +
 		"&flight_number=" +
 		flightNumber +
 		"&airline_iata=" +
 		airlineIata;
 
-	fetch(apiUrl).then(function (response) {
-		// then console log the data
-		response.json().then(function (data) {
-			console.log(data);
+	// try with axios to allow cors
+	axios({
+		method: "get",
+		url: apiUrl,
+	})
+		.then(function (res) {
+			console.log(res);
+		})
+		.catch(function (res) {
+			console.log(res);
 		});
-	});
 }
 
 export function searchFlightNumber(flight) {
@@ -33,18 +41,19 @@ export function searchFlightNumber(flight) {
 	// let flightNumber = flight;
 	let apiKey = process.env.REACT_APP_FLIGHT_API_KEY;
 	let apiUrl =
-		"https://app.goflightlabs.com/flights?access_key=" +
-		apiKey +
-		"&flight_number=" +
-		flightNumber;
+		"/flights?access_key=" + apiKey + "&flight_number=" + flightNumber;
 
-	// fetch api with hardcoded query
-	fetch(apiUrl).then(function (response) {
-		// then console log the data
-		response.json().then(function (data) {
-			console.log(data);
+	// try with axios to allow cors
+	axios({
+		method: "get",
+		url: apiUrl,
+	})
+		.then(function (res) {
+			console.log(res);
+		})
+		.catch(function (res) {
+			console.log(res);
 		});
-	});
 }
 
 // check that flight number is correct
