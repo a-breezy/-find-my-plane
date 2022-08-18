@@ -1,17 +1,11 @@
 import axios from "axios";
 
 export function searchFlight(iata, flight) {
+	let flightNumber = flight;
+	let airlineIata = iata;
 	let apiKey = process.env.REACT_APP_FLIGHT_API_KEY;
-	// dynamic query
-	// let flightNumber = flight;
-	// let airlineIata = iata;
 
-	console.log(apiKey);
 	console.log(iata, flight);
-
-	// hardcoded query
-	let flightNumber = 3628;
-	let airlineIata = "af";
 
 	let apiUrl =
 		"/flights?access_key=" +
@@ -35,10 +29,7 @@ export function searchFlight(iata, flight) {
 }
 
 export function searchFlightNumber(flight) {
-	// hardcoded query
-	let flightNumber = 3628;
-	// dynamic query
-	// let flightNumber = flight;
+	let flightNumber = flight;
 	let apiKey = process.env.REACT_APP_FLIGHT_API_KEY;
 	let apiUrl =
 		"/flights?access_key=" + apiKey + "&flight_number=" + flightNumber;
