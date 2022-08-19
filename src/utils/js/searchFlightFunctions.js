@@ -1,5 +1,18 @@
 import axios from "axios";
 
+// defining flight constructor
+const flightData = {
+	airline: data.airline.name,
+	origin: data.departure.airport,
+	destination: data.arrival.airport,
+	schedDepart: data.departure.scheduled,
+	actualDepart: data.departure.actual,
+	schedArrival: data.arrival.scheduled,
+	actualArrival: data.airline.actual,
+	originTerminal: data.depart.terminal,
+	destTerminal: data.arrival.terminal,
+};
+
 export function searchFlight(iata, flight) {
 	let flightNumber = flight;
 	let airlineIata = iata;
@@ -20,10 +33,12 @@ export function searchFlight(iata, flight) {
 		method: "get",
 		url: apiUrl,
 	})
-		.then(function (res) {
-			console.log(res);
+		.then((res) => {
+			let data = res.data[0];
+			// create new obj with data
+			console.log(new data());
 		})
-		.catch(function (res) {
+		.catch((res) => {
 			console.log(res);
 		});
 }
@@ -39,10 +54,10 @@ export function searchFlightNumber(flight) {
 		method: "get",
 		url: apiUrl,
 	})
-		.then(function (res) {
+		.then((res) => {
 			console.log(res);
 		})
-		.catch(function (res) {
+		.catch((res) => {
 			console.log(res);
 		});
 }
