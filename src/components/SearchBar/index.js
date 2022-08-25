@@ -26,7 +26,7 @@ function SearchBar(props) {
 		if (flightNumber.length === 4 && validateFourChar(flightNumber)) {
 			setSearch(true);
 			setErrorMessage("");
-			
+
 			searchFlightNumber(flightNumber);
 			// return (flight = flightNumber);
 		} else if (flightNumber.length === 6 && validateSixChar(flightNumber)) {
@@ -34,7 +34,7 @@ function SearchBar(props) {
 			flight = flightNumber.slice(2, 6);
 			setSearch(true);
 			setErrorMessage("");
-			
+
 			searchFlight(iata, flight);
 			// return [iata, flight];
 		} else if (
